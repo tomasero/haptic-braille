@@ -80,6 +80,7 @@ body {
     color: #fff;
     z-index: 100;
     display: none;
+    top: 0px;
 }
 
 #top-bar #title {
@@ -92,8 +93,10 @@ body {
 }
 
 #content {
-    padding-top: 60px;
+    margin-top: 60px;
     padding-bottom: 60px;
+    height: calc(100% - 60px);
+    background-color: #fcf0f1;
 }
 
 #menu-container {
@@ -334,4 +337,11 @@ body {
 #submenu-back-container {
     width: 352px;
     display: inline-block;
+}
+
+#content #container {
+    width: 720px;
+    height: 720px;
+    margin: 0px auto;
+    //background-color: rgba(129,136,146, 0.4);
 }

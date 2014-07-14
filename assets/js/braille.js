@@ -178,6 +178,7 @@ function translate() {
 }
 
 function setFrame() {
+      $('#letters-container').append('<div id="frame"></div>'); 
       frame = $('#letters-container #frame');
       var pos = $('.letter').position();
       frame.css({'top':pos.top,'left':pos.left});
@@ -202,7 +203,6 @@ function start(start) {
 }
 
 function reset() {
-    console.log('reset');
     text = [];
     lettersSet = false;
     setTimeout(function() {

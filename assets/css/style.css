@@ -290,7 +290,7 @@ body {
     left: 50%;
     top: 50%;
     margin-left: calc((((150px  + (2*3px))*2) + 40px)/(-2));
-    margin-top: calc(368px/(-2));
+    margin-top: calc((368px/(-2)) - 60px);
 }
 
 #submenu-container #title {

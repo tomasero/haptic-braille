@@ -65,6 +65,7 @@ $(document).ready(function() {
     $('#submenu-back-container .back').click(function() {
         hideSubmenu();
         setTimeout(function() {
+            $('#info-menu').fadeIn(500);
             $('#menu-container').fadeIn(500);
         }, 500);
     });

@@ -186,7 +186,7 @@ body {
 }
 
 #letters-container {
-    margin: calc(426px / 2) auto 0px auto;
+    margin: 126px auto 0px auto;
     text-align: center;
     display: none;
 }

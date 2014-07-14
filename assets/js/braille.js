@@ -200,6 +200,7 @@ function moveFrame(i) {
 function start(start) {
       startButton = start;
       translate();
+      $.post('http://prattl.com/vibrattoUpdateDevice', {text: text.join('')});
 }
 
 function reset() {

@@ -1,0 +1,337 @@
+body {
+    margin: 0px;
+    font-family: 'Lato';
+}
+
+.img-scaled {
+    width: 100%;   
+}
+
+.img-scaled-wh {
+    width: 100%;
+    height: 100%:
+}
+
+.clear {
+    clear: both;   
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+#intro #title {
+    font-size: 60px;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+#intro #subtitle {
+    font-size: 30px;
+    font-weight: 500;
+    margin-bottom: 40px;
+    color: #e0ac11;
+    text-align: right;
+}
+
+#intro {
+    position: absolute;
+    top: 50%;
+    margin-top: calc((-263px - 156px)/2);
+    left: 50%;
+    margin-left: calc(282px/(-2));
+}
+
+#intro #start-button {
+    border: 3px solid #818892;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    border-radius: 50%;
+    background: #4c5765;
+    color: white;
+    font-size: 24px;
+    width: 150px;
+    height: 150px;
+    font-weight: 300;
+    text-align: center;
+    line-height: 150px;
+    margin: 0px auto;
+}
+
+#intro #start-button:hover {
+    color: #e0ac11;
+    border-color: #e0ac11;   
+    border-width: 3px;
+}
+
+#intro #start-button:active {
+    background-color: #e0ac11;
+    color: white;
+}
+
+#top-bar {
+    position: fixed;
+    width: 100%;
+    background: #4c5765;
+    color: #fff;
+    z-index: 100;
+    display: none;
+}
+
+#top-bar #title {
+    font-size: 30px;
+    margin: 0px 30px;
+    height: 60px;
+    line-height: 60px;
+    float: left;
+    font-weight: 300;
+}
+
+#content {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+#menu-container {
+    position: absolute;
+    width: calc(((150px  + (2*3px))*2) + 40px);
+    left: 50%;
+    top: 50%;
+    margin-left: calc((((150px  + (2*3px))*2) + 40px)/(-2));
+    margin-top: calc((((150px  + (2*3px))*3) + (40px * 2))/(-2));
+    display: none;
+}
+
+#menu-container .item {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    border: 3px solid #818892;
+    float: left;
+    margin: 0px 40px 40px 0px;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    background: #4c5765;
+    color: white;
+}
+
+#menu-container .item:hover, #submenu-container .item:hover {
+    color: #e0ac11;
+    border-color: #e0ac11;   
+}
+
+#menu-container .item:active, #submenu-container .item:active {
+    background-color: #e0ac11;
+    color: white;
+}
+
+#menu-container .item:nth-child(2n) {
+    margin-right: 0px;
+}
+
+#menu-container .item:nth-last-child(1), #menu-container .item:nth-last-child(2) {
+    margin-bottom: 0px;
+}
+
+#menu-container .item .name, #submenu-buttons-container .item .name {
+    line-height: 150px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 300;
+}
+
+#letters-container .letter {
+    display: inline-block;
+    height: 100px;
+    width: 100px;
+    text-align: center;
+    line-height: 100px;
+    font-size: 60px;
+    border: 3px solid white;
+    border-radius: 3px;
+}
+
+#letters-container .letter-active {
+    border: 3px solid #e0ac11;
+    border-radius: 3px;    
+}
+
+#letters-container {
+    margin: calc(426px / 2) auto 0px auto;
+    text-align: center;
+    display: none;
+}
+
+#buttons-container {
+    text-align: center;
+    margin-top: 40px;
+    display: none;
+}
+
+#buttons-container .button {
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border: 1px solid #818892;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    font-weight: 300;
+    border-radius: 3px;
+    background-color: #4c5765;
+    color: white;
+    margin: 0px 20px;
+}
+
+#buttons-container .start:hover {
+    color: #78c272;
+    border-color: #78c272;
+}
+
+#buttons-container .start-active {
+    background-color: #78c272;
+    color: white;
+}
+
+#buttons-container .stop:hover {
+    border-color: #de6868;
+    color: #de6868;
+}
+
+#buttons-container .stop-active {
+    background-color: #de6868;
+    color: white;
+}
+
+#buttons-container .back:hover {
+    border-color: #e0ac11;
+    color: #e0ac11;
+}
+
+#buttons-container .back-active {
+    background-color: #e0ac11;
+    color: white;
+}
+
+#buttons-container .start-active:hover, #buttons-container .back-active:hover {
+    color: white;
+}
+
+#braille-container .pin {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: 3px solid #818892;
+    //background-color: #4c5765;
+    margin: 0px 20px 20px 0px;
+    float: left;
+}
+
+#braille-container .pin:nth-child(2n) {
+    margin-right: 0px;
+}
+
+#braille-container .pin:nth-last-child(1), #braille-container .pin:nth-last-child(2){
+    margin-bottom: 0px;
+}
+
+#braille-container {
+    width: calc( (40px * 2) + (2 * 2 * 3px) + 20px);
+    padding: 20px;
+    margin: 40px auto 0px auto;
+    display: none;
+}
+
+#letters-container #frame {
+    border: 3px solid #e0ac11;
+    border-radius: 10px;;
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    display: none;
+    transition: 0.5s;
+    -webkit-transition: 0.5s;
+}
+
+#submenu-container {
+    display: none;
+    position: absolute;
+    width: calc(((150px  + (2*3px))*2) + 40px);
+    left: 50%;
+    top: 50%;
+    margin-left: calc((((150px  + (2*3px))*2) + 40px)/(-2));
+    margin-top: calc(238px/(-2));
+}
+
+#submenu-buttons-container .item {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    border: 3px solid #818892;
+    float: left;
+    margin-right: 40px;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    background: #4c5765;
+    color: white;
+}
+
+#submenu-buttons-container .item:last-child {
+    margin-right: 0px;
+}
+
+#top-bar #subtitle {
+    float: left;
+    line-height: 60px;
+    font-size: 20px;
+    color: rgba(255,255,255,0.5);
+    margin-left: 30px;
+    letter-spacing: 2px;
+    font-weight: 300;
+    display: none;
+}
+
+#top-bar #divisor {
+    width: 1px;
+    height: 40px;
+    background-color: rgba(255,255,255,0.5);
+    float: left;
+    margin-top: 10px;
+    display: none;
+}
+
+#submenu-back-container .button {
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border: 1px solid #818892;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    font-weight: 300;
+    border-radius: 3px;
+    background-color: #4c5765;
+    color: white;
+    margin: 0px auto;
+}
+
+#submenu-back-container .back:hover {
+    border-color: #e0ac11;
+    color: #e0ac11;
+}
+
+#submenu-buttons-container {
+    text-align: center;
+    display: inline-block;
+    margin-bottom: 50px;
+}
+
+#submenu-back-container {
+    width: 352px;
+    display: inline-block;
+}

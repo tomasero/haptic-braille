@@ -1,6 +1,7 @@
 body {
     margin: 0px;
     font-family: 'Lato';
+    background-color: #fcf0f1;
 }
 
 .img-scaled {
@@ -23,6 +24,7 @@ body {
 .float-right {
     float: right;
 }
+
 #intro #title {
     font-size: 60px;
     font-weight: 300;
@@ -92,11 +94,31 @@ body {
     font-weight: 300;
 }
 
+#top-bar #subtitle {
+    float: left;
+    line-height: 60px;
+    font-size: 20px;
+    color: #e0ac11;
+    margin-left: 30px;
+    letter-spacing: 2px;
+    font-weight: 300;
+    display: none;
+}
+
+#top-bar #divisor {
+    width: 1px;
+    height: 30px;
+    background-color: #e0ac11;
+    float: left;
+    margin-top: 15px;
+    display: none;
+}
+
 #content {
     margin-top: 60px;
+    padding-top: 60px;
     padding-bottom: 60px;
-    height: calc(100% - 60px);
-    background-color: #fcf0f1;
+    height: calc(100% - 180px);
 }
 
 #menu-container {
@@ -105,7 +127,7 @@ body {
     left: 50%;
     top: 50%;
     margin-left: calc((((150px  + (2*3px))*2) + 40px)/(-2));
-    margin-top: calc((((150px  + (2*3px))*3) + (40px * 2))/(-2));
+    margin-top: calc((((150px  + (2*3px))*3) + (40px * 2))/(-2) + 60px + 20px);
     display: none;
 }
 
@@ -268,7 +290,14 @@ body {
     left: 50%;
     top: 50%;
     margin-left: calc((((150px  + (2*3px))*2) + 40px)/(-2));
-    margin-top: calc(238px/(-2));
+    margin-top: calc(368px/(-2));
+}
+
+#submenu-container #title {
+    font-size: 50px;
+    font-weight: 300;
+    margin-bottom: 40px;
+    text-align: center;
 }
 
 #submenu-buttons-container .item {
@@ -286,26 +315,6 @@ body {
 
 #submenu-buttons-container .item:last-child {
     margin-right: 0px;
-}
-
-#top-bar #subtitle {
-    float: left;
-    line-height: 60px;
-    font-size: 20px;
-    color: rgba(255,255,255,0.5);
-    margin-left: 30px;
-    letter-spacing: 2px;
-    font-weight: 300;
-    display: none;
-}
-
-#top-bar #divisor {
-    width: 1px;
-    height: 40px;
-    background-color: rgba(255,255,255,0.5);
-    float: left;
-    margin-top: 10px;
-    display: none;
 }
 
 #submenu-back-container .button {
@@ -339,9 +348,24 @@ body {
     display: inline-block;
 }
 
-#content #container {
+#info-menu {
     width: 720px;
-    height: 720px;
+    text-align: center;
     margin: 0px auto;
-    //background-color: rgba(129,136,146, 0.4);
+    display: none;
+}
+
+#info-menu #title {
+    font-size: 50px;
+    font-weight: 300;
+    margin-bottom: 10px;
+    text-align: center;
+    /* width: 500px; */
+}
+
+#info-menu #description {
+    font-size: 18px;
+    line-height: 24px;
+    text-align: center;
+    /* width: 300px; */
 }

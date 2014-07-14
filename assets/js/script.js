@@ -45,6 +45,7 @@ $(document).ready(function() {
     $('#menu-container .item').click(function() {
         var title = $(this).find($('.name')).text().trim();
         $('#menu-container').fadeOut(500);
+        $('#info-menu').fadeOut(500);
         setTimeout(function() {
             showSubmenu(title);
         }, 500);
@@ -73,6 +74,7 @@ $(document).ready(function() {
 function showMenu() {
     $('#intro').fadeOut(500);
     setTimeout(function() {
+        $('#info-menu').fadeIn(500);
         $('#top-bar').slideDown(500);
         $('#menu-container').fadeIn(500);
     }, 500);
@@ -83,6 +85,7 @@ function showSubmenu(title) {
     $('#top-bar #subtitle').fadeIn(500);
     $('#top-bar #divisor').fadeIn(500);
     $('#submenu-container').fadeIn(500);
+    $('#submenu-container #title').text(title);
 }
 
 function hideSubmenu() {

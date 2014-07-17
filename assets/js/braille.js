@@ -1,8 +1,10 @@
 var 
-text = [],
 pins = [],
+text = [],
 frame,
 startButton,
+quizButton,
+quizCurrentChar;
 lettersSet = false,
 stopAnimation = false,
 pinCount = 6,
@@ -79,7 +81,7 @@ function setPinOn(pin, letter) {
 }
 
 function setPinOff(pin, letter) {
-      pin.css({'background-color':'white'});
+      pin.css({'background-color':'transparent'});
 }
 
 function clearPins() {
@@ -135,7 +137,7 @@ function isNumber(number) {
       return numbers[number];
 }
 
-function setBrailleLetter(binary, index, extra, move) {
+function setBrailleLetterAndFrame(binary, index, extra, move) {
       var refreshCount = Number(index) + Number(extra);
       //if ( function() { return stopAnimation; } ) { 
        setTimeout(function() {
@@ -150,28 +152,29 @@ function setBrailleLetter(binary, index, extra, move) {
                   } 
             }
       }, refreshSpeed*refreshCount);        
-      //}
 }
 
-function translate() {
+//not used
+
+function translate(input) {
       setFrame();
       var braille = [],
       type = [],
       extraCount = 0;
 
-      for (var i in text) {
-            type[i] = getType(text[i]);
-            braille[i] = getBraille(text[i], type[i]);
+      for (var i in input) {
+            type[i] = getType(input[i]);
+            braille[i] = getBraille(input[i], type[i]);
       }
       for (var j in braille) {
             if (type[j] == 'CAPS') {
-                  setBrailleLetter(caps, j, extraCount++, true);
-                  setBrailleLetter(braille[j], j, extraCount, false);
+                  setBrailleLetterAndFrame(caps, j, extraCount++, true);
+                  setBrailleLetterAndFrame(braille[j], j, extraCount, false);
             } else if (type[j] == 'NUMB') {
-                  setBrailleLetter(number, j, extraCount++, true);
-                  setBrailleLetter(braille[j], j, extraCount, false);
+                  setBrailleLetterAndFrame(number, j, extraCount++, true);
+                  setBrailleLetterAndFrame(braille[j], j, extraCount, false);
             } else {
-                  setBrailleLetter(braille[j], j, extraCount, true);
+                  setBrailleLetterAndFrame(braille[j], j, extraCount, true);
             }
       }
       clearPinsAfterTranslation(braille.length + extraCount);
@@ -197,9 +200,9 @@ function moveFrame(i) {
       frame.css({'transform':'translateX('+value+'px)'})
 }
 
-function start(start) {
-      startButton = start;
-      translate();
+function learnStart(button) {
+      startButton = button;
+      translate(text);
       $.post('http://prattl.com/vibrattoUpdateDevice', {text: text.join('')});
 }
 
@@ -211,7 +214,83 @@ function reset() {
     }, 500);
 }
 
-function setup(input) {
-      setLetters(input);
-      getPins();
+function learnSetup(input) {
+    setLetters(input);
+    getPins();
+}
+
+function quizSetup(input) {
+    setLetters(input);
+}
+
+//starts quiz and returns send object
+//return false when there are no more letters to test
+
+function quizStart(button) {
+    shuffled = shuffle(text);
+    quizButton = button;
+    counter = 0;
+    $('#letters-container .letter').addClass('quiz-letter');
+    function send() {  
+        if (counter < shuffled.length) {
+            quizCurrentChar = shuffled[counter++];
+            console.log(quizCurrentChar);
+            return true;
+        } else {
+            quizButton.removeClass('practice-active');
+            return false;
+        }
+    }
+    function repeat() {
+        console.log("repeat: " + quizCurrentChar);
+    }
+    return {send: send, repeat: repeat};
+}
+
+function quizValidate(letterObj) {
+    value = letterObj.text();
+    console.log(value);
+    if (value === quizCurrentChar) {
+        changeLetterState(letterObj, true);
+        return true;
+    } else {
+        changeLetterState(letterObj, false);
+        return false;
+    }
+}
+                
+function changeLetterState(letter, state) {
+    if (state) {
+        letter.addClass('letter-correct');
+        setTimeout(function() {
+            letter.removeClass('letter-correct');
+            letter.addClass('letter-guessed');
+        }, 500);
+    } else {
+        letter.addClass('letter-wrong');
+        setTimeout(function() {
+            letter.removeClass('letter-wrong');
+        }, 500);
+    }
+}
+
+
+function shuffle(array) {
+  var currentIndex = array.length, 
+      temporaryValue, 
+      randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+  return array;
 }

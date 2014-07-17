@@ -3,6 +3,8 @@ lightGrey = '#ecf0f1',
 darkGrey = '#818892',
 green = '#78c272',
 itemColor = 'rgb(76, 87, 101)',
+sessionState = false,
+quizSession,
 letters = {
       vowels: 'aeiou',
       consonants: 'bcdfg',
@@ -18,17 +20,34 @@ $(document).ready(function() {
     
     //Braille translator animation start
     
-    $('#buttons-container .start').click(function() {
-        var bgColor =  $(this).css('background-color');
-        if (bgColor == itemColor) {
-            $(this).addClass('start-active');
-            start($(this));
-        } 
+    $('#buttons-container #start').click(function() {
+        $(this).addClass('start-active');
+        learnStart($(this));
     });
     
-    //Go back to submenu
+    $('#buttons-container #practice').click(function() {
+        $(this).addClass('practice-active');
+        if(!sessionState) {
+            quizSession = quizStart($(this));
+            quizSession.send();
+        }
+        sessionState = true;
+    });
     
-    $('#buttons-container .back').click(function() {
+    //NOTWORKING!
+    
+    $('#letters-container').on('click', '.letter', function() {
+        if (quizValidate($(this))){ 
+            if (!quizSession.send()) {
+                hideLearn();
+                setTimeout(showSubmenu, 500);
+            }
+        } else {
+            quizSession.repeat();
+        }
+    });
+    
+    $('#buttons-container #back').click(function() {
         var bgColor =  $(this).css('background-color'),
             back = $(this);
         if (bgColor == itemColor) {
@@ -53,12 +72,21 @@ $(document).ready(function() {
     
     //Option
     
-    $('#submenu-buttons-container .item').click(function() {
+    $('#submenu-buttons-container #learn').click(function() {
         var title = $('#top-bar #subtitle').text();
         var text = letters[title.toLowerCase()];
         $('#submenu-container').fadeOut(500);
         setTimeout(function() {
             showLearn(text);
+        }, 500);
+    });
+    
+    $('#submenu-buttons-container #quiz').click(function() {
+        var title = $('#top-bar #subtitle').text();
+        var text = letters[title.toLowerCase()];
+        $('#submenu-container').fadeOut(500);
+        setTimeout(function() {
+            showQuiz(text);
         }, 500);
     });
     
@@ -96,15 +124,30 @@ function hideSubmenu() {
 }
 
 function showLearn(text) {
-    setup(text);
+    learnSetup(text);
+    $('#letters-container').fadeIn(500);  
+    $('#buttons-container').fadeIn(500);
+    $('#buttons-container #start').css({'display':'inline-block'});
+    $('#braille-container').fadeIn(500);
+    $('#letters-container').removeClass('letters-container-quiz');
+}
+
+function showQuiz(text) {
+    quizSetup(text);
+    $('#info-quiz').fadeIn(500);
+    $('#letters-container').addClass('letters-container-quiz');
     $('#letters-container').fadeIn(500);
     $('#buttons-container').fadeIn(500);
-    $('#braille-container').fadeIn(500);
+    $('#buttons-container #practice').css({'display':'inline-block'});
 }
 
 function hideLearn() {
     reset();
+    sessionState = false;
+    $('#info-quiz').fadeOut(500);
     $('#letters-container').fadeOut(500);
     $('#buttons-container').fadeOut(500);
     $('#braille-container').fadeOut(500);
+    $('#buttons-container #start').fadeOut(500);
+    $('#buttons-container #practice').fadeOut(500);
 }

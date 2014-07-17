@@ -25,10 +25,11 @@
         </div>
         
         <!-- MENU -->
-        <div id="info-menu">
-            <div id="title">Choose a Category</div>
-            <div id="description">Learn how to interpret haptic vibration the easy way. <br>
-            Connect your smartphone to the <b>Vibratto</b> and click on a category to begin! </div>
+        <div id="info-menu" class="info">
+            <div class="title">Choose a Category</div>
+            <div class="description">Learn how to interpret haptic vibration the easy way. <br>
+            Connect your smartphone to the <b>Vibratto</b> and click on a category to begin
+            </div>
         </div>
         <div id="menu-container">
             <div class="item">
@@ -67,11 +68,16 @@
         
         <!-- LEARN -->
         
+        <div id="info-quiz" class="info">
+            <div class="title">Quiz</div>
+            <div class="description">Click 'Practice' to begin your quiz.<br>Wait for the vibration and then select the letter you think was transmitted through the <b>Vibratto</b></div>
+        </div>
         <div id="letters-container"></div>
         <div id="buttons-container">
-            <div class="button start">Start</div>
+            <div class="button" id="start">Start</div>
+            <div class="button" id="practice">Practice</div>
             <!-- <div class="button stop">Stop</div> -->
-            <div class="button back">Back</div>
+            <div class="button" id="back">Back</div>
         </div>
         <div id="braille-container">
             <div id="pin1" class="pin"></div>

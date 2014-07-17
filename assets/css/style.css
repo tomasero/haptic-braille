@@ -176,19 +176,38 @@ body {
     text-align: center;
     line-height: 100px;
     font-size: 60px;
-    border: 3px solid white;
+    border: 3px solid transparent;
     border-radius: 3px;
+    z-index: 999;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    vertical-align: bottom;
 }
 
-#letters-container .letter-active {
+#letters-container .quiz-letter:hover {
     border: 3px solid #e0ac11;
-    border-radius: 3px;    
+}
+
+#letters-container .letter-correct, #letters-container .letter-correct:hover {
+    border: 3px solid #78c272;  
+}
+
+#letters-container .letter-wrong, #letters-container .letter-wrong:hover {
+    border: 3px solid #de6868;
+}
+
+#letters-container .letter-guessed {
+    border: 3px solid #e0ac11; 
 }
 
 #letters-container {
     margin: 126px auto 0px auto;
     text-align: center;
     display: none;
+}
+
+.letters-container-quiz {
+    margin: 40px auto 0px auto !important;
 }
 
 #buttons-container {
@@ -213,12 +232,16 @@ body {
     margin: 0px 20px;
 }
 
-#buttons-container .start:hover {
+#buttons-container #start, #buttons-container #practice {
+    display: none;
+}
+
+#buttons-container #start:hover, #buttons-container #practice:hover {
     color: #78c272;
     border-color: #78c272;
 }
 
-#buttons-container .start-active {
+#buttons-container .start-active, #buttons-container .practice-active {
     background-color: #78c272;
     color: white;
 }
@@ -233,18 +256,18 @@ body {
     color: white;
 }
 
-#buttons-container .back:hover {
+#buttons-container #back:hover {
     border-color: #e0ac11;
     color: #e0ac11;
 }
 
-#buttons-container .back-active {
+#buttons-container #back-active {
     background-color: #e0ac11;
     color: white;
 }
 
-#buttons-container .start-active:hover, #buttons-container .back-active:hover {
-    color: white;
+#buttons-container .start-active:hover, #buttons-container .back-active:hover, #buttons-container .practice-active:hover {
+    color: white !important;
 }
 
 #braille-container .pin {
@@ -255,6 +278,7 @@ body {
     //background-color: #4c5765;
     margin: 0px 20px 20px 0px;
     float: left;
+    background-color: transparent;
 }
 
 #braille-container .pin:nth-child(2n) {
@@ -294,7 +318,7 @@ body {
 }
 
 #submenu-container #title {
-    font-size: 50px;
+    font-size: 40px;
     font-weight: 300;
     margin-bottom: 40px;
     text-align: center;
@@ -348,24 +372,23 @@ body {
     display: inline-block;
 }
 
-#info-menu {
-    width: 720px;
-    text-align: center;
-    margin: 0px auto;
-    display: none;
-}
-
-#info-menu #title {
-    font-size: 50px;
+.info .title {
+    font-size: 40px;
     font-weight: 300;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     text-align: center;
-    /* width: 500px; */
 }
 
-#info-menu #description {
+.info .description {
     font-size: 18px;
     line-height: 24px;
     text-align: center;
     /* width: 300px; */
+}
+
+.info {
+    width: 720px;
+    text-align: center;
+    margin: 0px auto;
+    display: none;
 }

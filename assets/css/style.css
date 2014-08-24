@@ -116,7 +116,7 @@ body {
 
 #content {
     margin-top: 60px;
-    padding-top: 60px;
+    padding-top: 40px;
     padding-bottom: 60px;
     height: calc(100% - 180px);
 }
@@ -127,7 +127,7 @@ body {
     left: 50%;
     top: 50%;
     margin-left: calc((((150px  + (2*3px))*2) + 40px)/(-2));
-    margin-top: calc((((150px  + (2*3px))*3) + (40px * 2))/(-2) + 60px + 20px);
+    margin-top: calc((((150px  + (2*3px))*3) + (40px * 2))/(-2) + 60px + 40px);
     display: none;
 }
 
@@ -373,14 +373,14 @@ body {
 }
 
 .info .title {
-    font-size: 40px;
+    font-size: 36px;
     font-weight: 300;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     text-align: center;
 }
 
 .info .description {
-    font-size: 18px;
+    font-size: 13px;
     line-height: 24px;
     text-align: center;
     /* width: 300px; */

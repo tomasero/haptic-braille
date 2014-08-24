@@ -13,7 +13,6 @@ letters = {
 };
 
 $(document).ready(function() {
-    
     //Start of application
     
     $('#start-button').click(showMenu);
@@ -37,13 +36,15 @@ $(document).ready(function() {
     //NOTWORKING!
     
     $('#letters-container').on('click', '.letter', function() {
-        if (quizValidate($(this))){ 
-            if (!quizSession.send()) {
-                hideLearn();
-                setTimeout(showSubmenu, 500);
-            }
-        } else {
-            quizSession.repeat();
+        if (sessionState) {
+            if (quizValidate($(this))){ 
+                if (!quizSession.send()) {
+                    hideLearn();
+                    setTimeout(showSubmenu, 500);
+                }
+            } else {
+                quizSession.repeat();
+            }   
         }
     });
     
@@ -143,7 +144,10 @@ function showQuiz(text) {
 
 function hideLearn() {
     reset();
-    sessionState = false;
+    if(sessionState) {
+        sessionState = false;    
+        quizButton.removeClass('practice-active');
+    }
     $('#info-quiz').fadeOut(500);
     $('#letters-container').fadeOut(500);
     $('#buttons-container').fadeOut(500);

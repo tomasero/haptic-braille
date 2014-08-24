@@ -1,10 +1,15 @@
 var 
+tessel = require('tessel'),
+gpio = tessel.port['GPIO'];
+outPins = [];
+
+var 
 pins = [],
 text = [],
 frame,
 startButton,
 quizButton,
-quizCurrentChar,
+quizCurrentChar;
 lettersSet = false,
 stopAnimation = false,
 pinCount = 6,
@@ -154,33 +159,28 @@ function setBrailleLetterAndFrame(binary, index, extra, move) {
       }, refreshSpeed*refreshCount);        
 }
 
-//not used
+function learnTranslate(input) {
+      setFrame();
+      var braille = [],
+      type = [],
+      extraCount = 0;
 
-function translate(input) {    
-  setFrame();
-  var braille = [],
-  type = [],
-  extraCount = 0;
-
-  console.log(input);
-
-  for (var i in input) {
-        type[i] = getType(input[i]);
-        braille[i] = getBraille(input[i], type[i]);
-  }
-  for (var j in braille) {
-      
-        if (type[j] == 'CAPS') {
-              setBrailleLetterAndFrame(caps, j, extraCount++, true);
-              setBrailleLetterAndFrame(braille[j], j, extraCount, false);
-        } else if (type[j] == 'NUMB') {
-              setBrailleLetterAndFrame(number, j, extraCount++, true);
-              setBrailleLetterAndFrame(braille[j], j, extraCount, false);
-        } else {
-              setBrailleLetterAndFrame(braille[j], j, extraCount, true);
-        }
-  }
-  clearPinsAfterTranslation(braille.length + extraCount);
+      for (var i in input) {
+            type[i] = getType(input[i]);
+            braille[i] = getBraille(input[i], type[i]);
+      }
+      for (var j in braille) {
+            if (type[j] == 'CAPS') {
+                  setBrailleLetterAndFrame(caps, j, extraCount++, true);
+                  setBrailleLetterAndFrame(braille[j], j, extraCount, false);
+            } else if (type[j] == 'NUMB') {
+                  setBrailleLetterAndFrame(number, j, extraCount++, true);
+                  setBrailleLetterAndFrame(braille[j], j, extraCount, false);
+            } else {
+                  setBrailleLetterAndFrame(braille[j], j, extraCount, true);
+            }
+      }
+      clearPinsAfterTranslation(braille.length + extraCount);
 }
 
 function setFrame() {
@@ -204,12 +204,9 @@ function moveFrame(i) {
 }
 
 function learnStart(button) {
-    startButton = button;
-    $.post('http://127.0.0.1:1337/', {text: text.join('')});
-    setTimeout(function() {
-        translate(text);
-    }, refreshSpeed);
-    console.log("learn: " + text.join(''));
+      startButton = button;
+      learnTranslate(text);
+      $.post('http://prattl.com/vibrattoUpdateDevice', {text: text.join('')});
 }
 
 function reset() {
@@ -239,26 +236,24 @@ function quizStart(button) {
     $('#letters-container .letter').addClass('quiz-letter');
     function send() {  
         if (counter < shuffled.length) {
-            quizCurrentChar = shuffled[counter];
-            console.log("TRUE " + counter);
+            quizCurrentChar = shuffled[counter++];
             console.log(quizCurrentChar);
-            $.post('http://127.0.0.1:1337/', {data: quizCurrentChar});
-            counter++;
+            //$.post('http://127.0.0.1:1337/', {text: quizCurrentChar});
             return true;
         } else {
+            quizButton.removeClass('practice-active');
             return false;
         }
     }
     function repeat() {
         console.log("repeat: " + quizCurrentChar);
-        $.post('http://127.0.0.1:1337/', {data: quizCurrentChar});
     }
     return {send: send, repeat: repeat};
 }
 
 function quizValidate(letterObj) {
     value = letterObj.text();
-    //console.log(value);
+    console.log(value);
     if (value === quizCurrentChar) {
         changeLetterState(letterObj, true);
         return true;
@@ -302,4 +297,51 @@ function shuffle(array) {
     array[randomIndex] = temporaryValue;
   }
   return array;
+}
+
+function initPins() {
+  for (var i = 0; i < 6; i++) {
+    outPins[i] = gpio.digital[i];
+  }
+}
+
+function quizTranslate(input) {
+
+  var braille = [],
+  type = [],
+  extraCount = 0;
+
+  for (var i in input) {
+        type[i] = getType(input[i]);
+        braille[i] = getBraille(input[i], type[i]);
+  }
+  for (var j in braille) {
+        if (type[j] == 'CAPS') {
+              setBrailleLetter(caps, j, extraCount++);
+              setBrailleLetter(braille[j], j, extraCount);
+        } else if (type[j] == 'NUMB') {
+              setBrailleLetter(number, j, extraCount++);
+              setBrailleLetter(braille[j], j, extraCount);
+        } else {
+              setBrailleLetterAndFrame(braille[j], j, extraCount);
+        }
+  }
+  clearPinsAfterTranslation(braille.length + extraCount);
+}
+
+function setBrailleLetter(binary, index, extra, move) {
+      var refreshCount = Number(index) + Number(extra);
+       setTimeout(function() {
+            for (var k in binary) {
+                  if (binary[k] == '1') {
+                        setTesselPin(outPins[k], 1);
+                  } else {
+                        setTesselPin(outPins[k], 0);
+                  } 
+            }
+      }, refreshSpeed*refreshCount);        
+}
+
+function setTesselPin(pin, state) {
+  pin.output(state);
 }
